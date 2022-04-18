@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include "svg.h"
+#include <string>
 using namespace std;
 
 
@@ -82,11 +83,20 @@ void show_histogram_svg(const vector<size_t>& bins) {
     if (scaling_needed){
         scaling_factor =(double)(IMAGE_WIDTH - TEXT_WIDTH)/(max_count*BLOCK_WIDTH);
         }
-
+    string colour;                  //индивуальное задание
+    getline(cin,colour);
+    size_t i=0;
     for (size_t bin : bins) {
+
+
+        cerr << "Colour("<<  i+1 <<") - ?  :";
+        string colour;
+        getline(cin,colour);
+        i++;
+
         const double bin_width = (double)(BLOCK_WIDTH * bin*scaling_factor);
         svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
-        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black", "crimson" );
+        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black" , colour );
         top += BIN_HEIGHT;
 }
     svg_end();
