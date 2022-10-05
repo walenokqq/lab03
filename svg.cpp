@@ -2,6 +2,7 @@
 #include <iostream>
 #include "svg.h"
 #include <string>
+
 using namespace std;
 
 
@@ -25,6 +26,14 @@ void svg_text(double left, double baseline, string text) {
 void svg_rect(double x, double y, double width, double height, string stroke, string FILL) {
 cout << "<rect x='"<< x <<"' y='"<<y <<"' width='"<<width<<"' height='"<<height<<"' stroke='"<<stroke<<"' fill='"<<FILL<<"' />";
 }
+
+        string color_ask (istream& stream){
+    string color;
+    cerr << "Color - ?  :";
+    stream>>color;
+    return (color);
+    }
+
 void show_histogram_text (vector<size_t> bins) {
     const size_t SCREEN_WIDTH = 80;
     const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
@@ -56,7 +65,7 @@ void show_histogram_text (vector<size_t> bins) {
             cout << '*';
         }
         cout << '\n';
-    }}
+    }   }
 void show_histogram_svg(const vector<size_t>& bins) {
     const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;
@@ -83,20 +92,14 @@ void show_histogram_svg(const vector<size_t>& bins) {
     if (scaling_needed){
         scaling_factor =(double)(IMAGE_WIDTH - TEXT_WIDTH)/(max_count*BLOCK_WIDTH);
         }
-    string colour;                  //индивуальное задание
-    getline(cin,colour);
-    size_t i=0;
+
+
+        size_t i=0;
     for (size_t bin : bins) {
-
-
-        cerr << "Colour("<<  i+1 <<") - ?  :";
-        string colour;
-        getline(cin,colour);
-        i++;
-
+        //auto color = color_ask();
         const double bin_width = (double)(BLOCK_WIDTH * bin*scaling_factor);
         svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
-        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black" , colour );
+        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black" , "red");
         top += BIN_HEIGHT;
 }
     svg_end();
