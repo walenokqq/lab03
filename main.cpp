@@ -14,20 +14,44 @@ vector <double> input_numbers(istream& in, size_t count) {
     return result;
 }
 
-int main() {
-    // ¬вод данных
-    size_t number_count;
+Input
+read_input(istream& in) {
+    Input data;
+
     cerr << "Enter number count: ";
-    cin >> number_count;
+    size_t number_count;
+    in >> number_count;
 
-    const auto numbers = input_numbers(cin, number_count);   //‘ункиц€ зaполнени€ массива чисел
+    cerr << "Enter numbers: ";
+    data.numbers = input_numbers(in, number_count);
 
-    size_t bin_count;
     cerr << "Enter column count: ";
-    cin >> bin_count;
+    size_t bin_count;
+    in >> data.bin_count;
+
+    return data;
+}
+
+vector <size_t> make_histogram (struct Input data) {
+    double min ;
+    double max;
+    find_minmax (data, min, max);
+    vector<size_t> bins(data.bin_count);
+    for (double number : data.numbers) {
+        size_t bin = (size_t)((number - min) / (max - min) * data.bin_count);
+        if (bin == data.bin_count) {
+            bin--;
+        }
+        bins[bin]++;
+    }
+    return bins;
+}
+
+int main() {
+   const auto input = read_input(cin);
 
     // ќбработка данных
-    auto bins=make_histogram(numbers, bin_count);
+    const auto bins = make_histogram(input);
 
     // ¬ывод данных
     show_histogram_svg (bins);
