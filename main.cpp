@@ -61,13 +61,11 @@ int main(int argc, char* argv[]) {
             res = curl_easy_perform(curl);
             curl_easy_cleanup(curl);
 
-     const auto input = read_input(cin,true);
-
-
-     const auto bins = make_histogram(input);
-
-    show_histogram_svg(bins);
-    return 0;
+            if (res)
+            {
+                cerr << curl_easy_strerror(res) << endl;
+                exit(1);
+            }
         }
         return 0;
     }
