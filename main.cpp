@@ -4,35 +4,34 @@
 #include "svg.h"
 #include <curl/curl.h>
 
+
 using namespace std;
 
-vector <double> input_numbers(istream& in, size_t count) {
+vector <double> input_numbers(istream& in, size_t count, bool prompt) {
     vector<double> result(count);
     for (size_t i = 0; i < count; i++) {
-        cerr << "Enter number ";
+            if (prompt) cerr << "Enter number ";
         in >> result[i];
     }
     return result;
 }
 
 Input
-read_input(istream& in, bool promt) {
-    if (promt) {
+read_input(istream& in, bool prompt) {
+
     Input data;
-    cerr << "Enter number count: ";
+       if (prompt) cerr << "Enter number count: ";
 
     size_t number_count;
     in >> number_count;
 
-    cerr << "Enter numbers: ";
-    data.numbers = input_numbers(in, number_count);
+    data.numbers = input_numbers(in, number_count, prompt);
 
-    cerr << "Enter column count: ";
+        if (prompt) cerr << "Enter column count: ";
     size_t bin_count;
     in >> data.bin_count;
 
     return data;
-    }
 }
 
 vector <size_t> make_histogram (struct Input data) {
@@ -57,7 +56,7 @@ int main(int argc, char* argv[]) {
        CURL* curl = curl_easy_init();
        if(curl) {
             CURLcode res;
-            curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
+                (curl, CURLOPT_URL, argv[1]);
             res = curl_easy_perform(curl);
             if (res != CURLE_OK)
             {
