@@ -2,9 +2,31 @@
 #include <iostream>
 #include "svg.h"
 #include <string>
+#include <sstream>
+#include <windows.h>
 
 using namespace std;
 
+string version_info() {
+    stringstream buffer;
+    DWORD info = GetVersion();
+    DWORD mask = 0x0000ffff;
+    DWORD version = info & mask;
+    DWORD platform = info >> 16;
+    DWORD mask_2 = 0x0000ff;
+   if ((info & 0x80000000) == 0)
+    {
+        DWORD version_major = version & mask_2;
+        DWORD version_minor = version >> 8;
+        DWORD build = platform;
+        buffer <<"Windows v" << version_major << "." << version_minor <<"(build" << build << ")";
+    }
+    char computer_name[MAX_COMPUTERNAME_LENGTH + 1];
+    DWORD size = MAX_COMPUTERNAME_LENGTH+1;
+    GetComputerNameA(computer_name, &size);
+    buffer << "Computer name:" << computer_name;
+    return buffer.str();
+}
 
 void svg_begin(double width, double height) {
     cout << "<?xml version='1.0' encoding='UTF-8'?>\n";
@@ -102,5 +124,6 @@ void show_histogram_svg(const vector<size_t>& bins) {
         svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black" , "red");
         top += BIN_HEIGHT;
 }
+    svg_text(TEXT_LEFT, top+BIN_HEIGHT, version_info());
     svg_end();
 }
