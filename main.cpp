@@ -69,10 +69,15 @@ Input
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
             res = curl_easy_perform(curl);
-            if (res)            {
+            if (res){
                 cerr << curl_easy_strerror(res) << endl;
                 exit(1);
             }
+            curl_off_t dl;
+            res = curl_easy_getinfo(curl, CURLINFO_SIZE_DOWNLOAD_T, &dl);
+            if(!res) {
+            cerr << "Downloaded "  << dl << " bytes\n";
+    }
         }
                 curl_easy_cleanup(curl);
     return read_input(buffer, false);
