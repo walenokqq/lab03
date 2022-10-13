@@ -19,7 +19,7 @@ string version_info() {
         DWORD version_major = version & mask_2;
         DWORD version_minor = version >> 8;
         DWORD build = platform;
-        buffer <<"Windows v" << version_major << "." << version_minor <<"(build" << build << ")";
+        buffer <<"Windows v" << version_major << "." << version_minor <<"(build" << build << ")"    ;
     }
     char computer_name[MAX_COMPUTERNAME_LENGTH + 1];
     DWORD size = MAX_COMPUTERNAME_LENGTH+1;

@@ -2,13 +2,12 @@
 #include <vector>
 #include "histogram.h"
 #include "svg.h"
-<<<<<<< HEAD
+
 #include <curl/curl.h>
 #include <sstream>
 #include <string>
-=======
+
 #include <windows.h>
->>>>>>> lab04-2
 
 using namespace std;
 
