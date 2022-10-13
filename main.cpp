@@ -2,9 +2,13 @@
 #include <vector>
 #include "histogram.h"
 #include "svg.h"
+<<<<<<< HEAD
 #include <curl/curl.h>
 #include <sstream>
 #include <string>
+=======
+#include <windows.h>
+>>>>>>> lab04-2
 
 using namespace std;
 
@@ -98,6 +102,7 @@ int main(int argc, char* argv[]){
 
     // Вывод данных
     show_histogram_svg (bins);
+
 
 
     return 0;
