@@ -32,9 +32,11 @@ int main() {
 
     // Вывод данных
     show_histogram_svg (bins);*/
-    DWORD WINAPI GetVersion(void);
+    DWORD info = GetVersion();
+    DWORD mask = 0b00000000'00000000'11111111'11111111;
+    DWORD version = info & mask;
     printf("Windows (decimal) version is %u.\n", GetVersion());
-    printf("WINDOWS (16x) version is %x. \n",GetVersion());
+    printf("Windows version is %08x\n",version);
 
 
     return 0;
